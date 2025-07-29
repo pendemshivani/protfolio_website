@@ -5,17 +5,21 @@ const { Resend } = require("resend");
 require("dotenv").config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000; // ✅ IMPORTANT for Render compatibility
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ✅ CORS: Allow GitHub Pages
 app.use(cors({
-  origin: 'https://pendemshivani.github.io',
-  methods: ['POST']
+  origin: 'https://pendemshivani.github.io', // allow frontend domain
+  methods: ['POST'],
+  credentials: false
 }));
 
+// ✅ Parse JSON requests
 app.use(bodyParser.json());
 
+// ✅ Contact POST endpoint
 app.post("/api/contact", async (req, res) => {
   const { name, email, phone, message } = req.body;
 
@@ -41,6 +45,11 @@ app.post("/api/contact", async (req, res) => {
   }
 });
 
+// ✅ Fallback route to test backend status
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
 app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server running on port ${port}`);
 });
