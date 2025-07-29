@@ -104,7 +104,7 @@ if (contactForm) {
       message: form.message.value,
     };
 
-    fetch('http://localhost:5000/api/contact', {
+    fetch('https://protfolio-3fev.onrender.com/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
