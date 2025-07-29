@@ -10,7 +10,8 @@ const port = 5000;
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.use(cors({
-  origin: 'https://pendemshivani.github.io'
+  origin: 'https://pendemshivani.github.io',
+  methods: ['POST']
 }));
 
 app.use(bodyParser.json());
